@@ -1,27 +1,11 @@
 
-/*
-    Welcome to your first dbt model!
-    Did you know that you can also configure models directly within SQL files?
-    This will override configurations stated in dbt_project.yml
+SELECT
+*
+FROM raw_national_review._airbyte_raw_widget_desktop
 
-    Try changing "table" to "view" below
-*/
-
-{{ config(materialized='table') }}
-
-with source_data as (
-
-    select 1 as id
-    union all
-    select null as id
-
-)
-
-select *
-from source_data
-
-/*
-    Uncomment the line below to remove records with null `id` values
-*/
-
--- where id is not null
+SELECT
+    {{ json_extract_scalar('_airbyte_data', ['date'])}} as date
+    , {{ json_extract_scalar('_airbyte_data', ['widget_imps'])}}  as impressions
+    , {{ json_extract_scalar('_airbyte_data', ['ad_clicks'])}}  as clicks
+    , {{ json_extract_scalar('_airbyte_data', ['ad_revenue'])}}  as revenue
+FROM raw_national_review._airbyte_raw_widget_desktop

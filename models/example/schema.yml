@@ -19,3 +19,16 @@ models:
             tests:
                 - unique
                 - not_null
+
+
+sources:
+  - name: deltasmith
+    database: klaviyo
+    quoting:
+      database: true
+      schema: true
+      identifier: true
+      
+    description: Sources from BigQuery data warehouse
+    tables:
+      - name: _airbyte_raw_klaviyo_campaigns
